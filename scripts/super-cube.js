@@ -8,22 +8,29 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(renderer.domElement);
 
+var geometry = new THREE.BoxGeometry(20, 20, 20);
 
-var geometry = new THREE.BoxGeometry(20, 20, 20)
-
-
-var material = new THREE.MeshLambertMaterial( {color: 0xfd59d7} );
-
+var material = new THREE.MeshNormalMaterial();
 
 var cube = new THREE.Mesh(geometry, material);
 
 scene.add(cube);
 
-var light = new THREE.PointLight(0xFFFF00);
-light.position.set(10, 0, 25);
-scene.add(light);
+for (var i = 0, l = geometry.vertices.length; i < l; i++) {
+  geometry.vertices[i].x += -10 + Math.random()*20
+  geometry.vertices[i].y += -10 + Math.random()*20
+}
 
 camera.position.set(0, 0, 100);
+
+cube.rotation.x = 0.45;
+cube.rotation.y = -0.25;
+// cube.position.x = -30;
+
+
+var light = new THREE.PointLight( 0xFFFF00 );
+light.position.set( 10, 0, 25 );
+scene.add( light );
 
 function animate() {
   requestAnimationFrame(animate);
