@@ -11,16 +11,23 @@ var controls = new THREE.OrbitControls( camera );
 controls.autoRotate = true;
 
 document.body.appendChild(renderer.domElement);
-
 var geometry = new THREE.OctahedronGeometry(30);
 
-var color = new THREE.Color("#7833aa");
+var color = new THREE.Color("#e25822");
 
 var material = new THREE.MeshLambertMaterial( {color: color.getHex(), wireframe: true} );
 
-var mesh = new THREE.Mesh(geometry, material);
+var cubeOne = new THREE.Mesh(geometry, material);
 
-scene.add(mesh);
+var materialTwo = new THREE.MeshPhongMaterial( {color: color.getHex(), specular: 0x009900, shinyness: 20} );
+
+var cubeTwo = new THREE.Mesh(geometry, materialTwo);
+
+scene.add(cubeOne);
+scene.add(cubeTwo);
+
+cubeOne.position.x += 50;
+cubeTwo.position.x -= 50;
 
 camera.position.set(0, 0, 100);
 
@@ -53,8 +60,9 @@ var animate = function() {
   requestAnimationFrame(animate);
   controls.update();
   // mesh.rotation.x += 0.01;
-  mesh.rotation.y += 0.05;
-  mesh.rotation.z -= 0.05;
+  cubeOne.rotation.y += 0.05;
+  cubeOne.rotation.z -= 0.05;
+  cubeTwo.rotation.y -= 0.05;
   renderer.render(scene, camera);
 }
 
